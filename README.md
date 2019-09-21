@@ -4,10 +4,10 @@ myRetail is a rapidly growing company with HQ in Richmond, VA and over 200 store
 
 ## Tech Stack
 
-a. NodeJS with express 
-b. Javascript
-c. MongoDB - Document DB Data store
-d. PostMan - For testing API
+1. NodeJS with express 
+2. Javascript
+3. MongoDB - Document DB Data store
+4. PostMan - For testing API
 
 ## Development envionment setup
 
@@ -44,14 +44,14 @@ Command downloads all the depedencies for this project
 npm install
 ```
 Run application
-
 ```
 npm start
 ```
 
-Now you can access different api endpoints and can test api using postman, you can import postman script from cloned directory
+5. Now you can access different api endpoints and can test api using postman, you can import postman script from cloned directory
 
-Please post some sample data before serving get request
+
+6. Please post some sample data before serving get request
 
 {"id":13860428,"name":"The Big Lebowski (Blu-ray)","current_price":{"value": 14.99,"currency_code":"USD"}}
 
@@ -75,4 +75,4 @@ PUT: localhost:3000/api/products/13860428
 
 •	Performs an HTTP GET to retrieve the product name from an external API. (For this exercise the data will come from redsky.target.com, but let’s just pretend this is an internal resource hosted by myRetail) reads pricing information from a NoSQL data store and combines it with the product id and name from the HTTP request into a single response.
 
-GET: localhost:3000/api/ext-products//13860428
+GET: localhost:3000/api/ext-products/13860428

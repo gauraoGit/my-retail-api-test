@@ -19,9 +19,8 @@ function routes(Product, logger) {
       }
       if (product) {
         req.product = product;
-        return next();
       }
-      return res.sendStatus(404);
+      return next();
     });
   });
 

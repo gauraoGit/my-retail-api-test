@@ -18,7 +18,7 @@ function productsController(Product) {
     async.parallel(
       {
         externalProduct: function(callback) {
-          request(env.externalApi(req.product.id), function(
+          request(env.externalApi(req.params.id), function(
             error,
             response,
             body
@@ -32,16 +32,37 @@ function productsController(Product) {
         }
       },
       function(err, results) {
+        //If error return error
+        if (err) return res.send(err);
+        //Parse raw data to json
         const data = JSON.parse(results.externalProduct);
         if (data.product) {
+          //If current product is not present in data store
+          //get it from external api
           const product = {
-            id: req.product._id,
-            current_price: req.product.current_price,
+            id: req.product ? req.product._id : data.product.item.tcin,
+            current_price: req.product
+              ? req.product.current_price
+              : //Hardcoded to usd since not sure where its provided in redsky api
+                {
+                  value: data.product.price.listPrice.price,
+                  currency_code: "USD"
+                },
             name: data.product.item.product_description.title
           };
+          //Since current product is no available in data store but available in external api
+          //hence save in data store
+          if (!req.product) {
+            console.log("Save product");
+            const newProduct = new Product({ ...product, _id: product.id });
+            console.log(newProduct);
+            newProduct.save();
+          }
           return res.json(product);
         }
-        return res.json(req.product);
+        if (req.product) return res.json(req.product);
+        //If Product with productId is not present in store and not in redsky, then return not found
+        return res.sendStatus(404);
       }
     );
   }

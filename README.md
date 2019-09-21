@@ -4,10 +4,11 @@ myRetail is a rapidly growing company with HQ in Richmond, VA and over 200 store
 
 ## Tech Stack
 
-1. NodeJS with express 
-2. Javascript
+1. NodeJS- express, request, async, body-parser
+2. Javascript with MVC pattern
 3. MongoDB - Document DB Data store
 4. PostMan - For testing API
+5. Unit testing - mocha, sinon, should
 
 ## Development envionment setup
 
@@ -76,3 +77,17 @@ PUT: localhost:3000/api/products/13860428
 •	Performs an HTTP GET to retrieve the product name from an external API. (For this exercise the data will come from redsky.target.com, but let’s just pretend this is an internal resource hosted by myRetail) reads pricing information from a NoSQL data store and combines it with the product id and name from the HTTP request into a single response.
 
 GET: localhost:3000/api/ext-products/13860428
+
+
+## Results of Postman 
+
+1. Get Single item from Data store - 13860428
+
+![GET For 13860428](https://github.com/gauraoGit/my-retail-api/blob/master/get%20-13860428.PNG)
+
+2. Update price for Single item  - 13860428
+
+![GET For 13860428](https://github.com/gauraoGit/my-retail-api/blob/master/Put%20-13860428.PNG)
+
+3. Get name from external api  - 13860428
+https://github.com/gauraoGit/my-retail-api/blob/master/get-name-ext-api%20-%2013860428.PNG

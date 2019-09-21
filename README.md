@@ -2,12 +2,12 @@
 
 myRetail is a rapidly growing company with HQ in Richmond, VA and over 200 stores across the east coast. myRetail wants to make its internal data available to any number of client devices, from myRetail.com to native mobile apps. 
 
-## Technologies Stack
+## Tech Stack
 
-NodeJS with express 
-Javascript
-MongoDB - Document DB Data store
-PostMan - For testing API
+a. NodeJS with express 
+b. Javascript
+c. MongoDB - Document DB Data store
+d. PostMan - For testing API
 
 ## Development envionment setup
 
@@ -75,4 +75,4 @@ PUT: localhost:3000/api/products/13860428
 
 •	Performs an HTTP GET to retrieve the product name from an external API. (For this exercise the data will come from redsky.target.com, but let’s just pretend this is an internal resource hosted by myRetail) reads pricing information from a NoSQL data store and combines it with the product id and name from the HTTP request into a single response.
 
-GET: localhost:3000/api/products/ext/13860428
+GET: localhost:3000/api/ext-products//13860428

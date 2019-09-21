@@ -87,7 +87,8 @@ GET: localhost:3000/api/ext-products/13860428
 
 2. Update price for Single item  - 13860428
 
-![GET For 13860428](https://github.com/gauraoGit/my-retail-api/blob/master/Put%20-13860428.PNG)
+![PU For 13860428](https://github.com/gauraoGit/my-retail-api/blob/master/Put%20-13860428.PNG)
 
 3. Get name from external api  - 13860428
-https://github.com/gauraoGit/my-retail-api/blob/master/get-name-ext-api%20-%2013860428.PNG
+![GET For 13860428](https://github.com/gauraoGit/my-retail-api/blob/master/get-name-ext-api%20-%2013860428.PNG)
+

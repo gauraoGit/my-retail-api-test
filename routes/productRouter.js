@@ -11,7 +11,7 @@ function routes(Product, logger) {
     return next();
   });
 
-  //Added middleware for common find by id
+   //Added middleware for common find by id
   productRouter.use("/products/:id", (req, res, next) => {
     Product.findById(req.params.id, (err, product) => {
       if (err) {
@@ -33,9 +33,8 @@ function routes(Product, logger) {
       }
       if (product) {
         req.product = product;
-        return next();
       }
-      return res.sendStatus(404);
+      return next();
     });
   });
 

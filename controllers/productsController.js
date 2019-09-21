@@ -4,6 +4,11 @@ const env = require("../config/environment");
 
 function productsController(Product) {
   function get(req, res) {
+    if(!req.product)
+    {
+      res.status(404)
+      return res.send('No content found');
+    }
     return res.json(req.product);
   }
 
@@ -53,9 +58,7 @@ function productsController(Product) {
           //Since current product is no available in data store but available in external api
           //hence save in data store
           if (!req.product) {
-            console.log("Save product");
             const newProduct = new Product({ ...product, _id: product.id });
-            console.log(newProduct);
             newProduct.save();
           }
           return res.json(product);
@@ -68,38 +71,61 @@ function productsController(Product) {
   }
 
   function post(req, res) {
-    if (!req.body.id) {
-      res.status(400);
-      return res.send("Product Id is required.");
-    }
-    if (!req.body.name) {
-      res.status(400);
-      return res.send("Product Name is required.");
-    }
-    if (!req.body.current_price) {
-      res.status(400);
-      return res.send("Product current price is required.");
-    }
-    if (!req.body.current_price.value) {
-      res.status(400);
-      return res.send("Product current price value is required.");
-    }
-    if (!req.body.current_price.currency_code) {
-      res.status(400);
-      return res.send("Product current price currency code is required.");
-    }
     const product = new Product({ ...req.body, _id: req.body.id });
-    product.save();
-    res.status(201);
-    return res.json(product);
+    const result = validateModel(product);
+    if (result.isValid) {
+      product.save();
+      res.status(201);
+      return res.json(product);
+    }
+    res.status(400);
+    return res.send({ errors: result.errors });
   }
 
   function put(req, res) {
-    const product = Object.assign(req.product, req.body);
+    if (!req.body) {
+      res.status(400);
+      return res.send("No properties for update.");
+    }
+    if (
+      req.body &&
+      req.body.current_price &&
+      !req.body.current_price.value &&
+      req.body.current_price.value <= 0
+    ) {
+      res.status(400);
+      return res.send("Product current price value is required.");
+    }
+    const product = Object.assign(req.product, {
+      current_price: req.body.current_price
+    });
     product.save();
-    return res.status(201).json(product);
+    res.status(200);
+    return res.json(product);
   }
 
+  function validateModel(product) {
+    let errors = [];
+    if (!product) {
+      errors.push("No properties for update.");
+    }
+    if (!product.id) {
+      errors.push("Product Id is required.");
+    }
+    if (!product.name) {
+      errors.push("Product Name is required.");
+    }
+    if (!product.current_price) {
+      errors.push("Product current price is required.");
+    }
+    if (product.current_price && !product.current_price.value) {
+      errors.push("Product current price value is required.");
+    }
+    if (product.current_price && !product.current_price.currency_code) {
+      errors.push("Product current price currency code is required.");
+    }
+    return { isValid: errors.length == 0, errors: errors };
+  }
   return { get, getAll, getExternalApiData, post, put };
 }
 

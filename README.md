@@ -76,6 +76,8 @@ PUT: localhost:3000/api/products/13860428
 
 •	Performs an HTTP GET to retrieve the product name from an external API. (For this exercise the data will come from redsky.target.com, but let’s just pretend this is an internal resource hosted by myRetail) reads pricing information from a NoSQL data store and combines it with the product id and name from the HTTP request into a single response.
 
+Added additional functionality - as if the product is not available in data store but available on redsky api then add the product from api to data store and return newly added product.
+
 GET: localhost:3000/api/ext-products/13860428
 
 

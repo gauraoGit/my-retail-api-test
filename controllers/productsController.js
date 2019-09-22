@@ -96,6 +96,11 @@ function productsController(Product) {
       res.status(400);
       return res.send("Product current price value is required.");
     }
+    if(!req.product)
+    {
+      res.status(404)
+      return res.send('No content found');
+    }
     const product = Object.assign(req.product, {
       current_price: req.body.current_price
     });

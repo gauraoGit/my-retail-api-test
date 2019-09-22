@@ -19,7 +19,7 @@ const db = mongoose.connect(env.mongodbUri, {
 //Http Response logs for error responses
 // create a write stream (in append mode)
 var accessLogStream = fs.createWriteStream(
-  path.join(__dirname, "logging/access.log"),
+  path.join(__dirname, "access.log"),
   { flags: "a" }
 );
 

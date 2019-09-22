@@ -1,17 +1,11 @@
 const express = require("express");
 const productsController = require("../controllers/productsController");
 
-function routes(Product, logger) {
+function routes(Product) {
   const productRouter = express.Router();
   const controller = productsController(Product);
-
-  //Added middleware for logging request
-  productRouter.use("/products", (req, res, next) => {
-    logger.info(req);
-    return next();
-  });
-
-   //Added middleware for common find by id
+  
+  //Added middleware for common find by id
   productRouter.use("/products/:id", (req, res, next) => {
     Product.findById(req.params.id, (err, product) => {
       if (err) {
@@ -47,7 +41,8 @@ function routes(Product, logger) {
     .get(controller.get)
     .put(controller.put);
 
-  productRouter.route("/ext-products/:id").get(controller.getExternalApiData);
+  productRouter.route("/ext-products/:id")
+    .get(controller.getExternalApiData);
 
   return productRouter;
 }

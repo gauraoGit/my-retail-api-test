@@ -1,6 +1,7 @@
 const async = require("async");
 const request = require("request");
 const env = require("../config/environment");
+const validator = require('../models/validator');
 
 function productsController(Product) {
   function get(req, res) {
@@ -72,7 +73,7 @@ function productsController(Product) {
 
   function post(req, res) {
     const product = new Product({ ...req.body, _id: req.body.id });
-    const result = validateModel(product);
+    const result= validator(product);
     if (result.isValid) {
       product.save();
       res.status(201);
@@ -96,35 +97,17 @@ function productsController(Product) {
       res.status(400);
       return res.send("Product current price value is required.");
     }
+    if(!req.product)
+    {
+      res.status(404)
+      return res.send('No content found');
+    }
     const product = Object.assign(req.product, {
       current_price: req.body.current_price
     });
     product.save();
     res.status(200);
     return res.json(product);
-  }
-
-  function validateModel(product) {
-    let errors = [];
-    if (!product) {
-      errors.push("No properties for update.");
-    }
-    if (!product.id) {
-      errors.push("Product Id is required.");
-    }
-    if (!product.name) {
-      errors.push("Product Name is required.");
-    }
-    if (!product.current_price) {
-      errors.push("Product current price is required.");
-    }
-    if (product.current_price && !product.current_price.value) {
-      errors.push("Product current price value is required.");
-    }
-    if (product.current_price && !product.current_price.currency_code) {
-      errors.push("Product current price currency code is required.");
-    }
-    return { isValid: errors.length == 0, errors: errors };
   }
   return { get, getAll, getExternalApiData, post, put };
 }
